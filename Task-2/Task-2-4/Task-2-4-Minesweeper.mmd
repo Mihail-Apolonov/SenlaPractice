@@ -1,0 +1,144 @@
+classDiagram
+direction TB
+    class IClickable {
+	    +OnLeftClick()
+	    +OnRightClick()
+    }
+
+    class IGameObserver {
+	    +Update(gameState)
+    }
+
+    class IGameStrategy {
+	    +GenerateField(width, height, bombs)
+    }
+
+    class GameEntity {
+	    #position: Vector2
+	    +GetPosition() Vector2
+	    +SetPosition(pos: Vector2)
+    }
+
+    class UIElement {
+	    #isVisible: bool
+	    +Show()
+	    +Hide()
+	    +Render()
+    }
+
+    class Game {
+	    -state: GameState
+	    -field: GameField
+	    -timer: GameTimer
+	    -observers: IGameObserver[]
+	    +StartGame()
+	    +EndGame()
+	    +PauseGame()
+	    +AddObserver(observer: IGameObserver)
+	    +NotifyObservers()
+    }
+
+    class GameField {
+	    -cells: Cell[][]
+	    -strategy: IGameStrategy
+	    +GetCell(x, y) : Cell
+	    +RevealCell(x, y)
+	    +FlagCell(x, y)
+	    +GenerateField(strategy: IGameStrategy)
+    }
+
+    class Cell {
+	    -isRevealed: bool
+	    -hasBomb: bool
+	    -isFlagged: bool
+	    -adjacentBombs: int
+	    +Reveal()
+	    +ToggleFlag()
+	    +CalculateAdjacentBombs()
+    }
+
+    class Bomb {
+	    -power: int
+	    +Explode()
+    }
+
+    class SafeCell {
+	    -adjacentBombs: int
+	    +Reveal()
+    }
+
+    class GameTimer {
+	    -startTime: DateTime
+	    -elapsedTime: TimeSpan
+	    +Start()
+	    +Stop()
+	    +GetElapsedTime() : TimeSpan
+    }
+
+    class ScoreManager {
+	    -score: int
+	    -highScores: Map~string, int~
+	    +AddScore(points: int)
+	    +SaveHighScore(name: string)
+	    +GetHighScores() : Map~string, int~
+    }
+
+    class GameSettings {
+	    -difficulty: DifficultyLevel
+	    -fieldWidth: int
+	    -fieldHeight: int
+	    -bombCount: int
+	    +ApplySettings(difficulty: DifficultyLevel)
+	    +GetSettings() : GameSettingsData
+    }
+
+    class DifficultyLevel {
+	    Easy
+	    Medium
+	    Hard
+	    Custom
+    }
+
+    class GameUI {
+	    -mainMenu: MainMenu
+	    -gameHUD: GameHUD
+	    -settingsUI: SettingsUI
+	    +UpdateHUD()
+	    +ShowMenu()
+	    +HideMenu()
+    }
+
+    class MainMenu {
+	    -buttons: Button[]
+	    +Show()
+	    +Hide()
+    }
+
+    class GameHUD {
+	    -timerDisplay: TextField
+	    -scoreDisplay: TextField
+	    -bombCounter: TextField
+	    +Update()
+    }
+
+	<<interface>> IClickable
+	<<interface>> IGameObserver
+	<<interface>> IGameStrategy
+	<<abstract>> GameEntity
+	<<abstract>> UIElement
+	<<enumeration>> DifficultyLevel
+
+    Game  *--  GameField : 
+    Game  *--  GameTimer : 
+    Game  o--  ScoreManager : 
+    Game  o--  GameSettings : 
+    GameField  *--  Cell : 
+    Cell <|-- SafeCell : 
+    Cell <|-- Bomb : 
+    GameField ..> IGameStrategy : 
+    Game ..> IGameObserver : 
+    Cell ..|> IClickable : 
+    GameUI  *-- GameHUD : 
+    GameUI  *--  MainMenu : 
+    GameSettings --> DifficultyLevel : 
+
