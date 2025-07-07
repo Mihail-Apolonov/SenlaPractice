@@ -1,6 +1,4 @@
-import Entity.GarageSpot;
-import Entity.Master;
-import Entity.Order;
+package Entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -66,6 +64,13 @@ public class AutoServiceAdmin {
                 date.getAvailableMasters(masters).removeIf(master -> master.getId() == id));
     }
 
+    public int getLastAddedOrderId() {
+        if (orders.isEmpty()) {
+            return -1;
+        }
+        return orders.get(orders.size() - 1).getId();
+    }
+
     public List<Master> getAllMasters() {
         return new ArrayList<>(masters);
     }
@@ -87,19 +92,19 @@ public class AutoServiceAdmin {
         orders.add(order);
     }
 
-    public void assignResourcesToOrder(int orderId, int masterId, int spotId) {
+    public Boolean assignResourcesToOrder(int orderId, int masterId, int spotId) {
         Order order = findOrderById(orderId);
-        if (order == null || !"active".equals(order.getStatus())) return;
+        if (order == null || !"active".equals(order.getStatus())) return false;
 
         Master master = findMasterById(masterId);
         GarageSpot spot = findSpotById(spotId);
-        if (master == null || spot == null) return;
+        if (master == null || spot == null) return false;
 
         ServiceDate serviceDate = getOrCreateServiceDate(order.getPlannedDate());
 
         if (!serviceDate.isMasterAvailable(master) || !serviceDate.isSpotAvailable(spot)) {
             cancelOrder(orderId);
-            return;
+            return false;
         }
 
         serviceDate.reserveMaster(master);
@@ -107,6 +112,7 @@ public class AutoServiceAdmin {
 
         order.setAssignedMaster(master);
         order.setAssignedSpot(spot);
+        return true;
     }
 
     public void cancelOrder(int orderId) {
