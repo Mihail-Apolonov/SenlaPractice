@@ -1,5 +1,6 @@
 package Entity;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -249,25 +250,59 @@ public class AutoServiceAdmin {
     }
 
     // Вспомогательные методы
-    private Order findOrderById(int id) {
+    public Order findOrderById(int id) {
         return orders.stream()
                 .filter(order -> order.getId() == id)
                 .findFirst()
                 .orElse(null);
     }
 
-    private Master findMasterById(int id) {
+    public Master findMasterById(int id) {
         return masters.stream()
                 .filter(master -> master.getId() == id)
                 .findFirst()
                 .orElse(null);
     }
 
-    private GarageSpot findSpotById(int id) {
+    public GarageSpot findSpotById(int id) {
         return garageSpots.stream()
                 .filter(spot -> spot.getId() == id)
                 .findFirst()
                 .orElse(null);
+    }
+
+    // Методы для экспорта
+    public void exportAllData(String basePath) throws IOException {
+        try {
+            CsvHandler.exportOrdersToCSV(orders, basePath + "/orders.csv");
+            CsvHandler.exportMastersToCSV(masters, basePath + "/masters.csv");
+            CsvHandler.exportSpotsToCSV(garageSpots, basePath + "/spots.csv");
+            CsvHandler.exportServiceDatesToCSV(serviceDates, basePath + "/service_dates.csv");
+        } catch (IOException e){
+            System.out.println(e.getCause());
+        }
+    }
+
+    // Методы для импорта
+    public void importAllData(String basePath) throws IOException {
+        try {
+            this.masters = CsvHandler.importMastersFromCSV(basePath + "/masters.csv");
+            this.garageSpots = CsvHandler.importSpotsFromCSV(basePath + "/spots.csv");
+            this.orders = CsvHandler.importOrdersFromCSV(basePath + "/orders.csv", masters, garageSpots);
+            this.serviceDates = CsvHandler.importServiceDatesFromCSV(basePath + "/service_dates.csv", masters, garageSpots);
+        } catch (IOException e) {
+            System.out.println(e.getCause());
+        }
+
+        // Обновляем nextOrderId
+        if (!orders.isEmpty()) {
+            nextOrderId = orders.stream()
+                    .mapToInt(Order::getId)
+                    .max()
+                    .getAsInt() + 1;
+        } else {
+            nextOrderId = 1;
+        }
     }
 }
 

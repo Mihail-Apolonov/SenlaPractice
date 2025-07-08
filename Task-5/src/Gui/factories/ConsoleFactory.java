@@ -18,6 +18,8 @@ public class ConsoleFactory implements IFactory {
             case 3 -> new addOrderCommand();
             case 4 -> new viewOrdersCommand();
             case 5 -> new completeOrderCommand();
+            case 6 -> new importCommand();
+            case 7 -> new exportCommand();
             default -> throw new IllegalArgumentException("Unknown command type");
         };
     }

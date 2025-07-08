@@ -67,4 +67,12 @@ public class ServiceDate {
     public int countAvailableSpots(List<GarageSpot> allSpots) {
         return allSpots.size() - busySpots.size();
     }
+
+    public List<Master> getBusyMasters() {
+        return new ArrayList<>(busyMasters);
+    }
+
+    public List<GarageSpot> getBusySpots() {
+        return new ArrayList<>(busySpots);
+    }
 }

@@ -22,6 +22,8 @@ public class ConsoleMenu implements Menu {
         System.out.println("3. Создать заказ");
         System.out.println("4. Просмотреть заказы");
         System.out.println("5. Завершить заказ");
+        System.out.println("6. Импортировать данные");
+        System.out.println("7. Экспортировать данные");
         System.out.println("0. Выход");
     }
 
