@@ -1,0 +1,89 @@
+{
+  "garageSpots" : [ {
+    "id" : 1
+  }, {
+    "id" : 2
+  } ],
+  "masters" : [ {
+    "id" : 1,
+    "name" : "Ваня"
+  }, {
+    "id" : 2,
+    "name" : "Леша"
+  } ],
+  "orders" : [ {
+    "id" : 1,
+    "submissionDate" : [ 2025, 7, 9 ],
+    "plannedDate" : [ 2025, 7, 9 ],
+    "completionDate" : null,
+    "price" : 4600.0,
+    "status" : "active",
+    "assignedMaster" : {
+      "id" : 1,
+      "name" : "Ваня"
+    },
+    "assignedSpot" : {
+      "id" : 2
+    }
+  }, {
+    "id" : 2,
+    "submissionDate" : [ 2025, 7, 9 ],
+    "plannedDate" : [ 2025, 7, 9 ],
+    "completionDate" : [ 2025, 7, 9 ],
+    "price" : 1200.0,
+    "status" : "completed",
+    "assignedMaster" : {
+      "id" : 2,
+      "name" : "Леша"
+    },
+    "assignedSpot" : {
+      "id" : 1
+    }
+  }, {
+    "id" : 3,
+    "submissionDate" : [ 2025, 7, 9 ],
+    "plannedDate" : [ 2025, 7, 9 ],
+    "completionDate" : null,
+    "price" : 5000.0,
+    "status" : "canceled",
+    "assignedMaster" : null,
+    "assignedSpot" : null
+  }, {
+    "id" : 4,
+    "submissionDate" : [ 2025, 7, 9 ],
+    "plannedDate" : [ 2025, 7, 10 ],
+    "completionDate" : null,
+    "price" : 7850.0,
+    "status" : "active",
+    "assignedMaster" : {
+      "id" : 1,
+      "name" : "Ваня"
+    },
+    "assignedSpot" : {
+      "id" : 1
+    }
+  } ],
+  "serviceDates" : {
+    "2025-07-10" : {
+      "date" : [ 2025, 7, 10 ],
+      "busyMasters" : [ {
+        "id" : 1,
+        "name" : "Ваня"
+      } ],
+      "busySpots" : [ {
+        "id" : 1
+      } ]
+    },
+    "2025-07-09" : {
+      "date" : [ 2025, 7, 9 ],
+      "busyMasters" : [ {
+        "id" : 1,
+        "name" : "Ваня"
+      } ],
+      "busySpots" : [ {
+        "id" : 2
+      } ]
+    }
+  },
+  "nextOrderId" : 5
+}
