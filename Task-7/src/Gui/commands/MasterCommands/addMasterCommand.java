@@ -1,11 +1,16 @@
 package Gui.commands.MasterCommands;
 
+import DI.Component;
+import DI.Inject;
 import Entity.AutoServiceAdmin;
 import Gui.commands.Command;
 
 import java.util.Scanner;
 
+@Component
 public class addMasterCommand implements Command {
+    @Inject
+    private AutoServiceAdmin adminService;
     @Override
     public void execute() {
         Scanner scanner = new Scanner(System.in);
@@ -15,7 +20,7 @@ public class addMasterCommand implements Command {
         System.out.print("Введите имя мастера: ");
         String name = scanner.nextLine();
 
-        AutoServiceAdmin.getInstance().addMaster(id, name);
+        adminService.addMaster(id, name);
         System.out.println("Мастер добавлен успешно!");
     }
 }

@@ -1,5 +1,7 @@
 package Gui.Menu;
 
+import Config.ConfigProperty;
+import Config.Configurator;
 import Gui.commands.Command;
 import Gui.factories.ICommandFactory;
 import Gui.factories.SpotFactory;
@@ -12,18 +14,13 @@ import java.util.Scanner;
 public class SpotMenu implements Menu {
     private final ICommandFactory factory;
     private final Scanner scanner;
+    @ConfigProperty(propertyName = "allowEditSpots")
     private Boolean allowEditSpots;
 
     public SpotMenu() {
         this.factory = new SpotFactory();
         this.scanner = new Scanner(System.in);
-        try {
-            Properties prop = new Properties();
-            prop.load(new FileInputStream("src/config.properties"));
-            allowEditSpots = Boolean.parseBoolean(prop.getProperty("allowEditSpots"));
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-        }
+        Configurator.configure(this);
     }
 
     @Override

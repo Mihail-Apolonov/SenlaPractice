@@ -1,5 +1,6 @@
 package Entity;
 
+import DI.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDate;
@@ -12,14 +13,13 @@ import java.util.Map;
 
 import static java.lang.Math.min;
 
+@Component
 public class AutoServiceAdmin {
     private List<GarageSpot> garageSpots;
     private List<Master> masters;
     private List<Order> orders;
     private Map<LocalDate, ServiceDate> serviceDates;
     private int nextOrderId;
-    @JsonIgnore
-    private static AutoServiceAdmin instance;
 
 
     public AutoServiceAdmin() {
@@ -30,16 +30,6 @@ public class AutoServiceAdmin {
         this.nextOrderId = 1;
     }
 
-    public static synchronized AutoServiceAdmin getInstance() {
-        if (instance == null) {
-            instance = new AutoServiceAdmin();
-        }
-        return instance;
-    }
-
-    public static void setInstance(AutoServiceAdmin instance) {
-        AutoServiceAdmin.instance = instance;
-    }
 
     // Методы для работы с гаражами
     public void addGarageSpot(int id) {

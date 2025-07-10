@@ -1,36 +1,33 @@
+import DI.DependencyInjector;
 import Entity.AutoServiceAdmin;
 import Entity.DataPersistence;
+import Gui.Menu.MainMenu;
 import Gui.Menu.Menu;
 import Gui.factories.IMenuFactory;
 import Gui.factories.MainFactory;
 
 public class Main {
-    private final Menu menu;
-
-    public Main(IMenuFactory factory) {
-        this.menu = factory.createMenu();
-    }
-
-    public void run() {
-        menu.run();
-    }
 
     public static void main(String[] args) {
 
-        // Загрузка данных при старте
+        // 1. Загрузка данных
         AutoServiceAdmin admin = DataPersistence.loadData();
-        AutoServiceAdmin.setInstance(admin);
 
-        // Сохранение при завершении
+        // 2. Регистрация экземпляра в DI-контейнере
+        DependencyInjector.registerInstance(AutoServiceAdmin.class, admin);
+
+        // 3. Инициализация главного меню с внедрением зависимостей
+        MainMenu mainMenu = new MainMenu();
+        DependencyInjector.injectDependencies(mainMenu);
+
+        // 4. Сохранение данных при завершении
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            DataPersistence.saveData(AutoServiceAdmin.getInstance());
+            DataPersistence.saveData(admin);
             System.out.println("Данные сохранены при завершении программы");
         }));
 
-
-
-        IMenuFactory factory = new MainFactory();
-        Main app = new Main(factory);
-        app.run();
+        // 5. Запуск
+        mainMenu.run();
     }
 }
+

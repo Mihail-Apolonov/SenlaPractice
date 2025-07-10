@@ -1,18 +1,19 @@
 package Gui.Menu;
 
+import DI.Component;
+import DI.Inject;
 import Gui.factories.IMenuFactory;
 import Gui.factories.MainFactory;
 
 import java.util.Scanner;
-
+@Component
 public class MainMenu implements Menu {
-    private final IMenuFactory factory;
-    private final Scanner scanner;
 
-    public MainMenu() {
-        this.factory = new MainFactory();
-        this.scanner = new Scanner(System.in);
-    }
+    private final IMenuFactory factory = new MainFactory();
+
+    private final Scanner scanner = new Scanner(System.in);
+
+    public MainMenu() {}
 
     @Override
     public void display() {

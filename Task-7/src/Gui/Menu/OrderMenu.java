@@ -1,5 +1,7 @@
 package Gui.Menu;
 
+import Config.ConfigProperty;
+import Config.Configurator;
 import Gui.commands.Command;
 import Gui.factories.ICommandFactory;
 import Gui.factories.OrderFactory;
@@ -12,19 +14,15 @@ import java.util.Scanner;
 public class OrderMenu implements Menu {
     private final ICommandFactory factory;
     private final Scanner scanner;
+    @ConfigProperty(propertyName = "allowRescheduleOrder")
     private Boolean allowRescheduleOrder;
+    @ConfigProperty(propertyName = "allowDeleteOrder")
     private Boolean allowDeleteOrder;
+
     public OrderMenu() {
         this.factory = new OrderFactory();
         this.scanner = new Scanner(System.in);
-        try {
-            Properties prop = new Properties();
-            prop.load(new FileInputStream("src/config.properties"));
-            allowRescheduleOrder = Boolean.parseBoolean(prop.getProperty("allowRescheduleOrder"));
-            allowDeleteOrder = Boolean.parseBoolean(prop.getProperty("allowDeleteOrder"));
-        } catch (IOException e) {
-            System.out.println(e.getCause());
-        }
+        Configurator.configure(this);
     }
 
     @Override

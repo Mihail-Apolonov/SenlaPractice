@@ -3,6 +3,8 @@ package Gui.factories;
 import Gui.Menu.*;
 
 public class MainFactory implements IMenuFactory {
+
+    public MainFactory(){}
     @Override
     public Menu createMenu() {
         return new MainMenu();
