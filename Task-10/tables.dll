@@ -1,0 +1,37 @@
+-- Создание таблицы Product
+CREATE TABLE Product (
+    maker VARCHAR(50) NOT NULL,
+    model VARCHAR(50) PRIMARY KEY,
+    type VARCHAR(10) NOT NULL CHECK (type IN ('PC', 'Laptop', 'Printer'))
+);
+-- Создание таблицы PC
+CREATE TABLE PC (
+    code INT PRIMARY KEY,
+    model VARCHAR(50) NOT NULL,
+    speed INT NOT NULL,
+    ram INT NOT NULL,
+    hd INT NOT NULL,
+    cd VARCHAR(10) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (model) REFERENCES Product(model)
+);
+-- Создание таблицы Laptop
+CREATE TABLE Laptop (
+    code INT PRIMARY KEY,
+    model VARCHAR(50) NOT NULL,
+    speed INT NOT NULL,
+    ram INT NOT NULL,
+    hd INT NOT NULL,
+    screen DECIMAL(3,1) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (model) REFERENCES Product(model)
+);
+-- Создание таблицы Printer
+CREATE TABLE Printer (
+    code INT PRIMARY KEY,
+    model VARCHAR(50) NOT NULL,
+    color CHAR(1) NOT NULL CHECK (color IN ('y', 'n')),
+    type VARCHAR(10) NOT NULL CHECK (type IN ('Laser', 'Jet', 'Matrix')),
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (model) REFERENCES Product(model)
+);

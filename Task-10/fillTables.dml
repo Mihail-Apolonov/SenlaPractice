@@ -1,0 +1,63 @@
+-- Заполнение таблицы Product
+INSERT INTO Product (maker, model, type) VALUES
+('Quantum', 'PC-1001', 'PC'),
+('Quantum', 'PC-1002', 'PC'),
+('Quantum', 'PC-1003', 'PC'),
+('EliteTech', 'ET-PC200', 'PC'),
+('EliteTech', 'ET-PC201', 'PC'),
+('EliteTech', 'ET-PC202', 'PC'),
+('MegaSystems', 'MS-500X', 'PC'),
+('MegaSystems', 'MS-501X', 'PC'),
+('MegaSystems', 'MS-502X', 'PC'),
+('EliteTech', 'LT-2001', 'Laptop'),
+('EliteTech', 'LT-2002', 'Laptop'),
+('EliteTech', 'LT-2003', 'Laptop'),
+('EliteTech', 'ET-LT300', 'Laptop'),
+('EliteTech', 'ET-LT301', 'Laptop'),
+('EliteTech', 'ET-LT302', 'Laptop'),
+('MegaSystems', 'MS-600X', 'Laptop'),
+('MegaSystems', 'MS-601X', 'Laptop'),
+('MegaSystems', 'MS-602X', 'Laptop'),
+('Quantum', 'PR-3001', 'Printer'),
+('Quantum', 'PR-3002', 'Printer'),
+('Quantum', 'PR-3003', 'Printer'),
+('EliteTech', 'ET-PR400', 'Printer'),
+('EliteTech', 'ET-PR401', 'Printer'),
+('EliteTech', 'ET-PR402', 'Printer'),
+('MegaSystems', 'MS-700X', 'Printer'),
+('MegaSystems', 'MS-701X', 'Printer'),
+('MegaSystems', 'MS-702X', 'Printer');
+-- Заполнение таблицы PC
+INSERT INTO PC (code, model, speed, ram, hd, cd, price) VALUES
+(1, 'PC-1001', 3200, 16, 512, '12x', 799.99),
+(2, 'PC-1002', 3400, 32, 1024, '16x', 999.99),
+(3, 'PC-1003', 3600, 64, 2048, '24x', 1299.99),
+(4, 'ET-PC200', 3000, 8, 256, '8x', 599.99),
+(5, 'ET-PC201', 3200, 16, 512, '12x', 799.99),
+(6, 'ET-PC202', 3500, 32, 1024, '16x', 1099.99),
+(7, 'MS-500X', 2800, 8, 256, '8x', 549.99),
+(8, 'MS-501X', 3200, 16, 512, '12x', 749.99),
+(9, 'MS-502X', 3700, 32, 1024, '16x', 1199.99);
+-- Заполнение таблицы Laptop
+INSERT INTO Laptop (code, model, speed, ram, hd, screen, price) VALUES
+(1, 'LT-2001', 2400, 8, 256, 13.3, 699.99),
+(2, 'LT-2002', 2600, 16, 512, 15.6, 899.99),
+(3, 'LT-2003', 2800, 32, 1024, 17.3, 1299.99),
+(4, 'ET-LT300', 2200, 8, 256, 14.0, 649.99),
+(5, 'ET-LT301', 2500, 16, 512, 15.6, 849.99),
+(6, 'ET-LT302', 2900, 32, 1024, 17.3, 1199.99),
+(7, 'MS-600X', 2300, 8, 256, 13.3, 599.99),
+(8, 'MS-601X', 2700, 16, 512, 15.6, 799.99),
+(9, 'MS-602X', 3100, 32, 1024, 17.3, 1399.99);
+
+-- Заполнение таблицы Printer
+INSERT INTO Printer (code, model, color, type, price) VALUES
+(1, 'PR-3001', 'y', 'Jet', 149.99),
+(2, 'PR-3002', 'n', 'Laser', 199.99),
+(3, 'PR-3003', 'y', 'Laser', 349.99),
+(4, 'ET-PR400', 'n', 'Jet', 99.99),
+(5, 'ET-PR401', 'y', 'Jet', 179.99),
+(6, 'ET-PR402', 'n', 'Matrix', 249.99),
+(7, 'MS-700X', 'y', 'Laser', 299.99),
+(8, 'MS-701X', 'n', 'Laser', 179.99),
+(9, 'MS-702X', 'y', 'Jet', 129.99);
